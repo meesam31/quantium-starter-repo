@@ -3,27 +3,23 @@ from dash import dcc, html
 import plotly.express as px
 import pandas as pd
 
-# Load the preprocessed data (update the file path as needed)
 df = pd.read_csv('task 2 Pink Morsels data.csv')
 
-# Check column names and rename if necessary (remove extra whitespace)
+
 df.columns = df.columns.str.strip()
 
-# Ensure 'Date' is in datetime format
+
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
 
-# Sort by Date for consistent plotting
+
 df = df.sort_values(by='Date')
 
-# Initialize Dash app
+
 app = dash.Dash(__name__)
 
-# Define the layout of the app
 app.layout = html.Div([
-    # Header title for the app
     html.H1("Soul Foods Pink Morsels Sales Data"),
 
-    # Line chart for sales over time
     dcc.Graph(
         id='sales-line-chart',
         figure=px.line(
